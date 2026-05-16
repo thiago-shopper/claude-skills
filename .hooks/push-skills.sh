@@ -6,6 +6,10 @@ set -u
 REPO="/var/home/shopper/.claude/skills"
 BRANCH="main"
 
+# Hooks don't source the user's shell startup files, so set the SSH key
+# path explicitly. Mirrors `export GIT_SSH_COMMAND=...` from ~/.bashrc.
+export GIT_SSH_COMMAND="ssh -i /var/home/shopper/core/ssh-keys/github-thiago-shopper"
+
 # Drain Claude Code's JSON payload from stdin so the script never blocks.
 cat >/dev/null 2>&1 || true
 
