@@ -1,0 +1,13 @@
+# OS / editor noise — never commit these inside skill folders.
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Hook script's transient debug logs (the script writes these to /tmp,
+# but listed here in case of future relocations).
+.hooks/*.err
+.hooks/*.log
