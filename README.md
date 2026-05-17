@@ -17,6 +17,7 @@ This repo augments Claude Code; it does not install it. Install Claude Code firs
 | `create-pr` | Open a GitHub PR from the current branch, bump version, honor repo PR template | `/create-pr <target>` |
 | `document-project` | Generate or refresh `README.md`, `CONTRIBUTING.md`, `ARCHITECTURE.md`, `DEPLOYMENT.md` | `/document-project` |
 | `plan-mode-prompt` | Turn a vague idea into a Plan-Mode-ready prompt | `/plan-mode-prompt` |
+| `project-starter` | Scaffold a new project (Backend API / CLI / Frontend / Fullstack / Monorepo / Library) from a short interview. Docker-first — never installs anything on the host. | `/project-starter` |
 
 ### Hooks
 
@@ -35,6 +36,7 @@ This repo augments Claude Code; it does not install it. Install Claude Code firs
 | Everything | **Git** | `apt install git` / `brew install git` |
 | `commit-before-changes` hook | **Python 3** | Pre-installed on most distros; `brew install python3` on macOS |
 | `create-pr` skill | **GitHub CLI (`gh`)** | <https://cli.github.com/> |
+| `project-starter` skill | **Docker** + **Docker Compose v2** | <https://docs.docker.com/engine/install/> |
 | Auto-push hook (optional) | SSH key with push access to your fork | `ssh-keygen` + `gh ssh-key add` |
 
 `jq` is **not** required — JSON parsing uses Python 3.
@@ -143,6 +145,7 @@ The hook is self-contained (only needs `bash`, `git`, `python3`) and needs **no 
 - **`create-pr`** — requires `gh auth login` to be set up; the skill calls `gh pr create` and `gh pr edit`. The skill never auto-picks a base branch — you must pass one (`/create-pr main`).
 - **`commit-before-changes`** — requires `git config user.name` and `git config user.email` to be set (globally or per-repo). The skill refuses to commit otherwise and tells you which command to run.
 - **`codebase-map`** — uses `git ls-files` to enumerate tracked files; needs no extra setup beyond a git repo.
+- **`project-starter`** — requires Docker + Docker Compose v2. Deliberately does **not** require Node, Yarn, npm, or corepack on the host — everything runs inside containers.
 
 `document-project` and `plan-mode-prompt` have no external dependencies beyond what Claude Code already provides.
 
@@ -169,7 +172,10 @@ The hook is self-contained (only needs `bash`, `git`, `python3`) and needs **no 
 ├── document-project/
 │   ├── SKILL.md
 │   └── references/
-└── plan-mode-prompt/
+├── plan-mode-prompt/
+│   ├── SKILL.md
+│   └── references/
+└── project-starter/
     ├── SKILL.md
     └── references/
 ```
